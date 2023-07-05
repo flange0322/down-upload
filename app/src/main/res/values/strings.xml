@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Upload and Download File Test</string>
+    <string name="button_upload_name">Upload</string>
+    <string name="button_download_name">Download</string>
+    <string name="response_status_code">null</string>
+    <string name="upload_file_name">fileName</string>
+</resources>
