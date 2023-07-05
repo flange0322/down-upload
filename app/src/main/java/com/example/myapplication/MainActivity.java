@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
     private class DownloadTrigger implements View.OnClickListener{
         @Override
         public void onClick(View v){
-            new download("http://192.168.1.153/cat.jpg").execute();
+            new download("http://192.168.0.2/cat.jpg").execute();
             try {
                 Thread.sleep(500);
                 Toast.makeText(MainActivity.this, "Download Complete", Toast.LENGTH_SHORT).show();
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
         public void onActivityResult(ActivityResult result) {
             if(result.getResultCode() == Activity.RESULT_OK && result.getData() != null){
                 Uri photoUri = result.getData().getData();
-                new upload(getRealPathFromURI(photoUri), "http://192.168.1.153/upload.php").execute();
+                new upload(getRealPathFromURI(photoUri), "http://192.168.0.2/upload.php").execute();
 
                 try {
                     Thread.sleep(500);

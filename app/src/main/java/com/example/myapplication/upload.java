@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.os.AsyncTask;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
@@ -35,26 +36,27 @@ public class upload extends AsyncTask<String,Void,Void> {
             connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
 
             // 寫入檔案開始標示
-            OutputStream os = connection.getOutputStream();
+            DataOutputStream dos = new DataOutputStream(connection.getOutputStream());
             String startingBoundary = "--" + boundary + lineBreak;
-            os.write(startingBoundary.getBytes());
+            dos.writeBytes(startingBoundary);
 
             // 寫入檔案內容
             String fileName = imageFile.getName();
             String imagePartHeader = "Content-Disposition: form-data; name=\"fileToUpload\"; filename=\"" + fileName + "\"" + lineBreak;
-            os.write(imagePartHeader.getBytes());
+            dos.writeBytes(imagePartHeader);
+            dos.writeBytes(lineBreak);
 
             FileInputStream fis = new FileInputStream(imageFile);
             byte[] buf = new byte[1024];
-            int len = -1;
+            int len = 0;
             while((len = fis.read(buf)) != -1){
-                os.write(buf, 0, len);
+                dos.write(buf, 0, len);
             }
             fis.close();
 
             // 寫入檔案結束標示
             String endingBoundary = lineBreak + "--" + boundary + "--" + lineBreak;
-            os.write(endingBoundary.getBytes());
+            dos.writeBytes(endingBoundary);
 
             // 接收伺服器回應
             responseCode = connection.getResponseCode();

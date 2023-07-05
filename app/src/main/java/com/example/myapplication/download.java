@@ -32,6 +32,7 @@ public class download extends AsyncTask<String, Void, Void> {
             if(responseCode == HttpURLConnection.HTTP_OK){
                 InputStream is = connection.getInputStream();
                 String folder = fileFolderDirectory();;
+                System.out.println(folder);
                 File file = new File(folder + fileName);
                 FileOutputStream fos = new FileOutputStream(file);
                 byte[] buf = new byte[1024];
